@@ -1,4 +1,4 @@
-***REMOVED***
+[Unit]
 Description=Run weather-discord every 10 minutes
 
 [Timer]
