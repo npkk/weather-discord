@@ -1,13 +1,13 @@
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+[Unit]
+Description=Weather Discord Bot
+Wants=network-online.target
+After=network-online.target
 
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/path/to/weather-discord/
+EnvironmentFile=/path/to/weather-discord/.env
+ExecStart=/path/to/uv run weather-discord
+StandardOutput=journal
+StandardError=journal
