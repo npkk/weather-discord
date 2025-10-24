@@ -15,3 +15,9 @@ Discordにお天気を知らせるだけのアプリ
 3. 適当に定時実行させる(cron, systemd.service, etc...)
     - systemd.serviceは`weather-discord.{service,timer}`に記述済み
         - pathは適宜要書き換え
+
+## クレジット表示
+
+下記APIを利用しています
+
+Webサービス by Yahoo! JAPAN （https://developer.yahoo.co.jp/sitemap/）
