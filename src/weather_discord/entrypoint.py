@@ -4,6 +4,9 @@ from .schema import YDF
 from .config import Config
 import sqlite3
 import pathlib
+from datetime import datetime
+from typing import List
+from .schema import Weather
 
 
 async def run():
@@ -61,7 +64,7 @@ async def run():
             logger.debug(f"discord respond with body:\n{response_discord.text}")
 
         # 6. 5分後の降雨量を取得
-        nextWeathers = [w for w in weatherList if w.Type == "forecast"]
+        nextWeathers: List[Weather] = [w for w in weatherList if w.Type == "forecast"]
 
         # 7. 雨が近い
         for nextWeather in nextWeathers:
@@ -71,9 +74,12 @@ async def run():
                 and nextWeather.Rainfall > 0.0
             ):
                 # yyyyMMddhhmi 8: -> hhmi
-                delta = int(nextWeather.Date[8:]) - int(currentWeather.Date[8:])
+                delta = datetime.strptime(
+                    nextWeather.Date[8:], "%H%M"
+                ) - datetime.strptime(currentWeather.Date[8:], "%H%M")
+
                 response_discord = await callDiscord(
-                    f"{delta}分後に雨が降り始めます(降水量: {nextWeather.Rainfall}mm/h)"
+                    f"{delta.seconds // 60}分後に雨が降り始めます(降水量: {nextWeather.Rainfall}mm/h)"
                 )
                 logger.info(
                     f"discord respond with code: {response_discord.status_code}"
